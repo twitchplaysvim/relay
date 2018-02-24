@@ -9,7 +9,7 @@ defmodule Relay.Application do
     # List all child processes to be supervised
     children = [
       # Starts a worker by calling: Relay.Worker.start_link(arg)
-      # {Relay.Worker, arg},
+      {Relay.IrcClient, %{}},
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

@@ -28,3 +28,7 @@ use Mix.Config
 # here (which is why it is important to import them last).
 #
 #     import_config "#{Mix.env}.exs"
+
+config :relay, twitch_username: "playsvim"
+config :relay, twitch_oauth_token: System.get_env("TWITCH_OAUTH")
+config :relay, twitch_target_channel: "#playsvim"
