@@ -46,8 +46,8 @@ defmodule Relay.MessageHandler do
     "backspace" => "BackSpace",
     "tab" => "Tab",
     "return" => "Return",
-    "ctrl+c" => "#{@ctrl_l_keycode}+c",
-    "ctrl+d" => "#{@ctrl_l_keycode}+d",
+    "ctrl+c" => "#{@ctrl_l_keycode}+54",
+    "ctrl+d" => "#{@ctrl_l_keycode}+40"
   }
 
   def handle_message(message) when message in @digits when message in @lowercase do
