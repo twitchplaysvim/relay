@@ -31,6 +31,6 @@ defmodule Relay.MessageHandler do
   end
 
   defp emulate_key(key_code) do
-    System.cmd("xdotool", ["search", "--name", "twitchplaysvim", "key", key_code])
+    System.cmd("xdotool", ["search", "--name", "vim", "key", key_code])
   end
 end
