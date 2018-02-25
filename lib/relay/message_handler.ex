@@ -39,8 +39,9 @@ defmodule Relay.MessageHandler do
     "|" => "bar",
     "~" => "asciitilde"
   }
-  @multi_char_commands ["esc", "backspace", "tab", "return", "ctrl+c", "ctrl+d"]
+  @multi_char_commands ["space", "esc", "backspace", "tab", "return", "ctrl+c", "ctrl+d"]
   @multi_char_command_map %{
+    "space" => "space",
     "esc" => "Escape",
     "backspace" => "BackSpace",
     "tab" => "Tab",
@@ -76,6 +77,6 @@ defmodule Relay.MessageHandler do
   end
 
   defp emulate_key(key_code) do
-    System.cmd("xdotool", ["search", "--name", "vim", "key", key_code])
+    System.cmd("xdotool", ["key", key_code])
   end
 end
