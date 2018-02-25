@@ -4,7 +4,7 @@ defmodule Relay.MessageHandler do
   @digits "0123456789" |> String.codepoints
   @lowercase "abcdefghijklmnopqrstuvwxyz" |> String.codepoints
   @uppercase "ABCDEFGHIJKLMNOPQRSTUVWXYZ" |> String.codepoints
-  @special_chars "!\"$#%^&'()*-+=,./\\:;<>?@[]_`{}|~" |> String.codepoints
+  @special_chars "!\"$#%^&'()*-+=,.\\:;<>?@[]_`{}|~" |> String.codepoints
   @special_char_map %{
     "!" => "exclam",
     "\"" => "qoutedbl",
@@ -22,7 +22,6 @@ defmodule Relay.MessageHandler do
     "=" => "equal",
     "," => "comma",
     "." => "period",
-    "/" => "slash",
     "\\" => "backslash",
     ":" => "colon",
     ";" => "semicolon",
@@ -39,13 +38,14 @@ defmodule Relay.MessageHandler do
     "|" => "bar",
     "~" => "asciitilde"
   }
-  @multi_char_commands ["space", "esc", "backspace", "tab", "return", "ctrl+c", "ctrl+d"]
+  @multi_char_commands ["space", "esc", "backspace", "tab", "return", "slash", "ctrl+c", "ctrl+d"]
   @multi_char_command_map %{
     "space" => "space",
     "esc" => "Escape",
     "backspace" => "BackSpace",
     "tab" => "Tab",
     "return" => "Return",
+    "slash" => "slash",
     "ctrl+c" => "#{@ctrl_l_keycode}+54",
     "ctrl+d" => "#{@ctrl_l_keycode}+40"
   }
