@@ -1,22 +1,67 @@
 defmodule Relay.MessageHandler do
-  @digits "0123456789"
-  @lowercase "abcdefghijklmnopqrstuvwxyz"
-  @uppercase "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-  @special "[];'\,./'`"
-  @shift_special "!@£$%^&*()_+}{:\"|?><~"
-  @alt_special "¡€#¢§ˆ¶¨ªº–≠‘“…æ«÷≥≤§±"
-  @permitted_single_chars "#{@digits}#{@lowercase}#{@uppercase}#{@special}#{@shift_special}#{@alt_special}" |> String.codepoints
-  @multi_char_commands ["esc", "backspace", "tab", "return"]
+  @ctrl_l_keycode 37
+  @shift_l_keycode 50
+  @digits "0123456789" |> String.codepoints
+  @lowercase "abcdefghijklmnopqrstuvwxyz" |> String.codepoints
+  @uppercase "ABCDEFGHIJKLMNOPQRSTUVWXYZ" |> String.codepoints
+  @special_chars "!\"$#%^&'()*-+=,./\\:;<>?@[]_`{}|~" |> String.codepoints
+  @special_char_map %{
+    "!" => "exclam",
+    "\"" => "qoutedbl",
+    "$" => "dollar",
+    "#" => "numbersign",
+    "%" => "percent",
+    "^" => "asciicircum",
+    "&" => "ampersand",
+    "'" => "apostrophe",
+    "(" => "parenleft",
+    ")" => "parenright",
+    "*" => "asterisk",
+    "-" => "minus",
+    "+" => "plus",
+    "=" => "equal",
+    "," => "comma",
+    "." => "period",
+    "/" => "slash",
+    "\\" => "backslash",
+    ":" => "colon",
+    ";" => "semicolon",
+    "<" => "less",
+    ">" => "greater",
+    "?" => "question",
+    "@" => "at",
+    "[" => "bracketleft",
+    "]" => "bracketright",
+    "_" => "underscore",
+    "`" => "grave",
+    "{" => "braceleft",
+    "}" => "braceright",
+    "|" => "bar",
+    "~" => "asciitilde"
+  }
+  @multi_char_commands ["esc", "backspace", "tab", "return", "ctrl+c", "ctrl+d"]
   @multi_char_command_map %{
     "esc" => "Escape",
     "backspace" => "BackSpace",
     "tab" => "Tab",
-    "return" => "Return"
+    "return" => "Return",
+    "ctrl+c" => "#{@ctrl_l_keycode}+c",
+    "ctrl+d" => "#{@ctrl_l_keycode}+d",
   }
-  # @modifiers ["ctrl"] # i'm not sure how to tackle this yet
 
-  def handle_message(message) when message in @permitted_single_chars do
+  def handle_message(message) when message in @digits when message in @lowercase do
     emulate_key(message)
+    :ok
+  end
+
+  def handle_message(message) when message in @uppercase do
+    emulate_key("#{@shift_l_keycode}+#{message}")
+    :ok
+  end
+
+  def handle_message(message) when message in @special_chars do
+    key_code = @special_char_map[message]
+    emulate_key(key_code)
     :ok
   end
 
