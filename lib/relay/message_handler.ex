@@ -37,7 +37,7 @@ defmodule Relay.MessageHandler do
     "|" => "bar",
     "~" => "asciitilde"
   }
-  @multi_char_commands ["space", "esc", "backspace", "tab", "return", "slash", "period", "ctrl+c", "ctrl+d"]
+  @multi_char_commands ["space", "esc", "backspace", "tab", "return", "slash", "period", "ctrl+c", "ctrl+d", "up", "down", "left", "right"]
   @multi_char_command_map %{
     "space" => "space",
     "esc" => "Escape",
@@ -46,6 +46,10 @@ defmodule Relay.MessageHandler do
     "return" => "Return",
     "slash" => "slash",
     "period" => "period",
+    "up" => "Up",
+    "down" => "Down",
+    "left" => "Left",
+    "right" => "Right",
     "ctrl+c" => "#{@ctrl_l_keycode}+54",
     "ctrl+d" => "#{@ctrl_l_keycode}+40"
   }
